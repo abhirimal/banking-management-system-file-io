@@ -59,6 +59,8 @@ public class Transactions {
 
             saveTransactionDetail(transactionDetails);
 
+            System.out.println("You have deposited your money successfully");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,18 +86,21 @@ public class Transactions {
             BufferedReader reader = new BufferedReader(new FileReader(oldFile));
             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile, true));
 
+            int count =0;
+
             while ((line = reader.readLine()) != null) {
                 String[] splittedAccountDetails = line.split(splitBy);
 
                 if (splittedAccountDetails[1].contains(accountNumber)) {
                     int currentBalance = Integer.parseInt(splittedAccountDetails[2]);
-                    if (currentBalance > withdraw) {
+                    if (currentBalance >= withdraw) {
                         updatedAmount = String.valueOf(currentBalance - withdraw);
 
                         line = splittedAccountDetails[0] + "," + splittedAccountDetails[1] + "," + updatedAmount + "," +
                                 splittedAccountDetails[3] + "," + splittedAccountDetails[4]+","+splittedAccountDetails[5];
                     } else {
                         System.out.println("You have insufficient balance.");
+                        count++;
                     }
 
                 }
@@ -117,6 +122,10 @@ public class Transactions {
             transactionDetails.setTimeStamp(timeStamp.TimeStamp());
 
             saveTransactionDetail(transactionDetails);
+
+            if(count==0){
+                System.out.println("Please collect your cash. Thank You");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

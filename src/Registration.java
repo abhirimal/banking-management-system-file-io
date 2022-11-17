@@ -15,57 +15,42 @@ public class Registration {
         Scanner sc = new Scanner(System.in);
 
         // for name
-
-
-        String regex = "[a-zA-Z]";
-
-//        if (Pattern.matches("[a-zA-Z+]+[ ]+[a-zA-Z]{1,20}", fullName)) {
-//            account.setFullName(fullName);
-//        } else {
-//            System.out.println("Please enter a correct name format");
-//        }
         String fullName;
         do{
-            System.out.println("Please enter your full name");
+            System.out.println("Please enter your full name with correct format.");
             fullName = sc.nextLine();
             account.setFullName(fullName);
-        } while(!(Pattern.matches("[a-zA-Z+]+[ ]+[a-zA-Z]{1,20}", fullName)));
+        } while(!(Pattern.matches("[a-zA-Z+]+[ ]+[a-zA-Z]+", fullName)));
 
         // for account number
         GenerateAccount accountId = new GenerateAccount();
         String id = accountId.generateToken();
         account.setAccountNumber(id);
 
-
-        // for email
-        System.out.println("Enter your email");
-        String email = sc.nextLine();
-
-        if (Pattern.matches("[a-zA-Z0-9+_.-]+@[a-z]+[.][a-z]{3}", email)) {
+        String email;
+        do{
+            System.out.println("Please enter your email with correct format.");
+            email = sc.nextLine();
             account.setEmail(email);
-        } else {
-            System.out.println("Please enter a correct email format");
         }
+        while(!(Pattern.matches("[a-zA-Z0-9+_.-]+@[a-z]+[.][a-z]{3}", email)));
 
         //for phone
-        System.out.println("Enter your phone number.");
-        String phone = sc.nextLine();
-
-        if (Pattern.matches("[0-9]{10}", phone)) {
+        String phone;
+        do {
+            System.out.println("Please enter your phone number with correct format.");
+            phone = sc.nextLine();
             account.setPhone(phone);
-        } else {
-            System.out.println("Enter a correct phone format. ");
-        }
+        } while(!(Pattern.matches("[0-9]{10}", phone)));
 
         //for address
-        System.out.println("Enter your address.");
-        String address = sc.nextLine();
 
-        if (Pattern.matches("[a-zA-Z]{1,30}", address)) {
+        String address;
+        do {
+            System.out.println("Please enter your address.");
+            address = sc.nextLine();
             account.setAddress(address);
-        } else {
-            System.out.println("Enter a correct address format. ");
-        }
+        } while ((Pattern.matches("[a-zA-Z]{1,100}", address)));
 
         account.setBalance(0);
 
@@ -83,11 +68,8 @@ public class Registration {
             e.printStackTrace();
         }
 
-        System.out.println(account.getFullName());
-        System.out.println(account.getAccountNumber());
-        System.out.println(account.getEmail());
-        System.out.println(account.getPhone());
-        System.out.println(account.getAddress());
+        System.out.println("Your account has been created. Thank You");
+
     }
 
 }

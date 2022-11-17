@@ -14,7 +14,7 @@ public class GenerateAccount {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
 
-        System.out.println(generatedString);
+//        System.out.println(generatedString);
 
         return generatedString;
     }
